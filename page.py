@@ -15,7 +15,7 @@ class GoogleTranslate(object):
     def __init__(self, driver):
         self.driver = driver
         self.delay = 10
-        self.driver.get(GOOGLE_TRANSLATE_URL)
+        # self.driver.get(GOOGLE_TRANSLATE_URL)
 
     def select_language(self, language):
         """ select a language """
