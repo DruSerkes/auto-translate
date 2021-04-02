@@ -1,7 +1,6 @@
 from selenium import webdriver
 from page import GoogleTranslate
-from time import sleep
-
+from languages import LANGUAGES
 
 example_phrase = "youngblood, say you want me back in your life"
 example_language = 'spanish'
@@ -19,9 +18,6 @@ sleep(3)
 
 with open(f'translations-{example_language}', 'w') as f:
     f.write(translation + '\n')
-
-
-# translator.clear_phrase()
 
 
 # when finished
