@@ -20,12 +20,12 @@ Translate a list of phrases into a list of languages
 --- 
 
 ## Languages
-Any language supported by Google Translate
+Any language supported by Google Translate 📚
 
 --- 
 
 ## Tech 
-* Python 3.9.1
+* Python 3.9.1 🐍
 * Selenium 
 * Chromedriver-py
 * A little help from [Google Translate](https://translate.google.com)
