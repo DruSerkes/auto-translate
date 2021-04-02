@@ -11,10 +11,14 @@ driver = webdriver.Chrome()
 translator = GoogleTranslate(driver)
 
 translator.select_language(example_language)
-translator.type_phrase(example_phrase)
-# translator.copy_translation()
-# sleep(3)
-# TODO write to the file
+translation = translator.translate_phrase(example_phrase)
+print('TRANSLATION: ', translation)
+
+translator.clear_phrase()
+sleep(3)
+
+with open(f'translations-{example_language}', 'w') as f:
+    f.write(translation + '\n')
 
 
 # translator.clear_phrase()

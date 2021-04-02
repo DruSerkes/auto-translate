@@ -14,7 +14,7 @@ class GoogleTranslate(object):
 
     def __init__(self, driver):
         self.driver = driver
-        self.delay = 5
+        self.delay = 10
         self.driver.get(GOOGLE_TRANSLATE_URL)
 
     def select_language(self, language):
@@ -32,17 +32,22 @@ class GoogleTranslate(object):
             lambda driver: driver.find_element(*GoogleTranslateLocators.LANGUAGE))
         language_button.click()
 
-    def type_phrase(self, phrase):
+    def translate_phrase(self, phrase):
         """ Type an english phrase into google translate """
         self.translation_text = phrase
+        translated_text_element = WebDriverWait(self.driver, self.delay).until(
+            lambda driver: driver.find_element(*GoogleTranslateLocators.TRANSLATED_TEXT))
+        return translated_text_element.text
 
     # def copy_translation(self):
     #     """ Hit the copy button for the translation """
-    #     # TODO
+    #     copy_button = self.driver.find_element(
+    #         *GoogleTranslateLocators.RIGHT_COPY_BUTTON)
+    #     copy_button.click()
 
-    # def clear_phrase(self):
-    #     """ Clear the phrase you typed in for translation """
-    #     # TODO
+    def clear_phrase(self):
+        """ Clear the phrase you typed in for translation """
+        translation_text = ''
 
 
 # WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located(
