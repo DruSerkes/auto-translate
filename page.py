@@ -32,9 +32,9 @@ class GoogleTranslate(object):
             lambda driver: driver.find_element(*GoogleTranslateLocators.LANGUAGE))
         language_button.click()
 
-    # def type_phrase(self, phrase):
-    #     """ Type an english phrase into google translate """
-    #     # TODO
+    def type_phrase(self, phrase):
+        """ Type an english phrase into google translate """
+        self.translation_text = phrase
 
     # def copy_translation(self):
     #     """ Hit the copy button for the translation """
