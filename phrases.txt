@@ -1,3 +1,3 @@
 This is an example phrase!
-Make sure to type extra phrases on new lines 
-
+Type new phrases on new lines 
+Translations will be structured the same 
