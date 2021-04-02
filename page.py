@@ -39,16 +39,6 @@ class GoogleTranslate(object):
             lambda driver: driver.find_element(*GoogleTranslateLocators.TRANSLATED_TEXT))
         return translated_text_element.text
 
-    # def copy_translation(self):
-    #     """ Hit the copy button for the translation """
-    #     copy_button = self.driver.find_element(
-    #         *GoogleTranslateLocators.RIGHT_COPY_BUTTON)
-    #     copy_button.click()
-
     def clear_phrase(self):
         """ Clear the phrase you typed in for translation """
         translation_text = ''
-
-
-# WebDriverWait(self.driver, self.delay).until(EC.presence_of_element_located(
-       #     *GoogleTranslateLocators.RIGHT_DROPDOWN_BUTTON))

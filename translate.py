@@ -5,6 +5,16 @@ from languages import LANGUAGES
 example_phrase = "youngblood, say you want me back in your life"
 example_language = 'spanish'
 
+phrases_to_translate = []
+
+with open('phrases.txt', 'r') as f:
+    for phrase in f:
+        print('phrase: ', phrase)
+        phrases_to_translate.append(phrase.rstrip())
+
+
+print(f'Phrases to translate: {phrases_to_translate}')
+
 driver = webdriver.Chrome()
 
 translator = GoogleTranslate(driver)
