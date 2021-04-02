@@ -4,6 +4,7 @@ from languages import LANGUAGES
 from time import sleep
 
 GOOGLE_TRANSLATE_URL = "https://translate.google.com/"
+TRANSLATIONS_DIRECTORY = './translations'
 
 # example_phrase = "youngblood, say you want me back in your life"
 # example_language = 'spanish'
@@ -14,58 +15,45 @@ with open('phrases.txt', 'r') as f:
     for phrase in f:
         phrases_to_translate.append(phrase.rstrip())
 
-
 print(f'Phrases to translate: {phrases_to_translate}')
-
-# driver = webdriver.Chrome()
-# driver.get(GOOGLE_TRANSLATE_URL)
-# translator = GoogleTranslate(driver)
-
-# def get_translated_phrase(translator, language, last_translation):
-#     translator.select_language(language)
-#     translation = translator.read_translated_phrase()
-#     return translation
 
 
 def add_translation_to_file(language, translation):
-    with open(f'translations-{language}', 'a') as f:
+    """ Write translation to a file in the translations/ directory  """
+    with open(f'{TRANSLATIONS_DIRECTORY}/{language}', 'a') as f:
         f.write(translation + '\n')
 
 
-def translate_phrases(phrases, language):
-    """ 
-    Translate a list of phrases into a language
-    phrases: List 
-    language: string
-    output: writes translations to a file in this directory  
-    """
-    # driver = webdriver.Chrome()
-    # driver.get(GOOGLE_TRANSLATE_URL)
-    # translator = GoogleTranslate(driver)
-
-    translator.select_language(language)
+def translate_phrases(translator, phrases, language):
+    """ Translate a list of phrases into a language """
     for phrase in phrases:
         translator.type_phrase_to_translate(phrase)
-        sleep(1)
+        sleep(0.5)
         translated_phrase = translator.read_translated_phrase()
         add_translation_to_file(language, translated_phrase)
-    # driver.quit()
 
 
-def translate_phrases_into_languages(phrases=phrases_to_translate, languages=LANGUAGES):
+def translate_phrases_into_languages(translator, phrases, languages):
+    """ Translate a list of phrases into a list of languages """
     for language in LANGUAGES:
-        translate_phrases(phrases_to_translate, language)
+        translator.open_new_tab(GOOGLE_TRANSLATE_URL)
+        translator.select_language(language)
+        translate_phrases(translator, phrases_to_translate, language)
+        translator.close_current_tab()
 
 
 def auto_translate(phrases=phrases_to_translate, languages=LANGUAGES):
     """ 
-    Automatically translates each phrase into each language via chrome & google translate 
-    This runs O(n^2), so it may take some time depending on how many phrases and languages you input
+    Automatically translates each phrase into each language via chrome & google translate \n
+    This runs O(n^2), so it may take some time
     """
     driver = webdriver.Chrome()
-    driver.get(GOOGLE_TRANSLATE_URL)
     translator = GoogleTranslate(driver)
-    translate_phrases_into_languages(phrases, languages)
+    translate_phrases_into_languages(translator, phrases, languages)
 
     driver.quit()
+
+
+if __name__ == '__main__':
+    auto_translate()
     print('PROCESS COMPLETE!')

@@ -5,7 +5,7 @@ from locators import GoogleTranslateLocators
 from elements import LeftInputElement, LanguageSearchInputElement
 from selenium.common.exceptions import ElementNotInteractableException
 
-GOOGLE_TRANSLATE_URL = "https://translate.google.com/"
+# GOOGLE_TRANSLATE_URL = "https://translate.google.com/"
 
 
 class GoogleTranslate(object):
@@ -16,7 +16,17 @@ class GoogleTranslate(object):
     def __init__(self, driver):
         self.driver = driver
         self.delay = 10
-        # self.driver.get(GOOGLE_TRANSLATE_URL)
+
+    def open_new_tab(self, url):
+        """ open a new tab to the url """
+        self.driver.find_element_by_tag_name(
+            'body').send_keys(Keys.COMMAND + 't')
+        self.driver.get(url)
+
+    def close_current_tab(self):
+        """ close the current tab """
+        self.driver.find_element_by_tag_name(
+            'body').send_keys(Keys.COMMAND + 'w')
 
     def select_language(self, language):
         """ select a language """
@@ -49,7 +59,6 @@ class GoogleTranslate(object):
     def read_translated_phrase(self):
         """ Return the translated text """
         # WAIT FOR "TRANSLATING TO BE GONE"
-        # text_translating = WebDriverWait(self.driver, self.delay).until(lambda driver: )
         text_translating = self.driver.find_element(
             *GoogleTranslateLocators.TEXT_TRANSLATING)
         WebDriverWait(self.driver, self.delay).until_not(
@@ -62,7 +71,6 @@ class GoogleTranslate(object):
 
     def clear_phrase(self):
         """ Clear the phrase you typed in for translation """
-        # translation_text = ''
         # FIND THE CLEAR BUTTON
         clear_button = WebDriverWait(self.driver, self.delay).until(
             lambda driver: driver.find_element(*GoogleTranslateLocators.LEFT_X_BUTTON))
